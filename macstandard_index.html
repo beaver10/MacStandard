@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MacStandard — 내 맥북은 양품일까?</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{background:#000;color:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',sans-serif;-webkit-font-smoothing:antialiased;}
+    nav{display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:48px;background:rgba(0,0,0,0.85);border-bottom:0.5px solid rgba(255,255,255,0.1);position:sticky;top:0;z-index:100;backdrop-filter:blur(20px);}
+    .logo{font-size:18px;font-weight:500;color:#f5f5f7;}
+    .nav-links{display:flex;gap:24px;}
+    .nav-link{font-size:12px;color:rgba(255,255,255,0.6);text-decoration:none;}
+    .nav-dl{font-size:12px;color:#30d158;text-decoration:none;}
+    .hero{text-align:center;padding:120px 40px 80px;max-width:980px;margin:0 auto;}
+    .eyebrow{font-size:17px;font-weight:400;color:#30d158;margin-bottom:12px;}
+    .hero h1{font-size:80px;font-weight:200;line-height:1.05;letter-spacing:-4px;margin-bottom:24px;}
+    .hero h1 em{font-style:italic;}
+    .hero-sub{font-size:21px;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:44px;letter-spacing:-0.3px;}
+    .cta-row{display:flex;align-items:center;justify-content:center;gap:28px;}
+    .cta-primary{font-size:19px;color:#30d158;text-decoration:none;}
+    .cta-secondary{font-size:19px;color:rgba(255,255,255,0.4);}
+    .app-wrap{max-width:720px;margin:60px auto 0;padding:0 40px 80px;}
+    .app-window{background:#1c1c1e;border-radius:16px;border:0.5px solid rgba(255,255,255,0.1);overflow:hidden;}
+    .titlebar{background:#2c2c2e;padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid rgba(255,255,255,0.08);}
+    .dot{width:12px;height:12px;border-radius:50%;}
+    .dot-r{background:#ff5f57;}.dot-y{background:#ffbd2e;}.dot-g{background:#28c840;}
+    .win-title{font-size:13px;color:rgba(255,255,255,0.5);margin-left:8px;}
+    .win-body{padding:24px;}
+    .win-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+    .win-name{font-size:20px;font-weight:600;}
+    .win-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-top:3px;}
+    .seal{width:34px;height:34px;background:#30d158;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#000;font-weight:700;}
+    .prog-label{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:6px;}
+    .prog-track{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;margin-bottom:20px;overflow:hidden;}
+    .prog-fill{height:100%;width:100%;background:#30d158;border-radius:2px;}
+    .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .wcard{background:rgba(255,255,255,0.05);border-radius:12px;padding:14px;border:0.5px solid rgba(48,209,88,0.25);}
+    .wcard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+    .wcard-icon{font-size:18px;}
+    .badge{font-size:10px;padding:2px 8px;border-radius:20px;background:rgba(48,209,88,0.15);color:#30d158;font-weight:500;}
+    .wcard-title{font-size:13px;font-weight:500;margin-bottom:2px;}
+    .wcard-desc{font-size:11px;color:rgba(255,255,255,0.3);}
+    .wcard-div{height:0.5px;background:rgba(255,255,255,0.08);margin:8px 0;}
+    .wcard-result{font-size:11px;color:rgba(255,255,255,0.4);}
+    .section{padding:80px 40px;text-align:center;border-top:0.5px solid rgba(255,255,255,0.08);}
+    .sec-eyebrow{font-size:13px;font-weight:500;color:#30d158;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:12px;}
+    .sec-title{font-size:48px;font-weight:200;letter-spacing:-2px;margin-bottom:8px;}
+    .sec-sub{font-size:19px;font-weight:300;color:rgba(255,255,255,0.45);margin-bottom:56px;letter-spacing:-0.3px;}
+    .feat-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:980px;margin:0 auto;}
+    .feat{background:#161617;padding:40px 32px;text-align:left;}
+    .feat:first-child{border-radius:14px 0 0 14px;}
+    .feat:last-child{border-radius:0 14px 14px 0;}
+    .feat-icon{font-size:32px;margin-bottom:20px;}
+    .feat-title{font-size:21px;font-weight:300;margin-bottom:10px;letter-spacing:-0.5px;}
+    .feat-desc{font-size:15px;color:rgba(255,255,255,0.4);line-height:1.65;font-weight:300;}
+    .tests-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:980px;margin:0 auto;}
+    .test-item{background:#161617;border-radius:14px;padding:24px;text-align:left;}
+    .test-icon{font-size:28px;margin-bottom:12px;}
+    .test-title{font-size:16px;font-weight:400;margin-bottom:6px;}
+    .test-desc{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.5;}
+    .dl-section{text-align:center;padding:100px 40px;border-top:0.5px solid rgba(255,255,255,0.08);}
+    .dl-section h2{font-size:48px;font-weight:200;letter-spacing:-2px;margin-bottom:12px;}
+    .dl-section p{font-size:19px;font-weight:300;color:rgba(255,255,255,0.45);margin-bottom:40px;}
+    .dl-btn{display:inline-flex;align-items:center;gap:8px;background:#30d158;color:#000;border:none;padding:18px 36px;border-radius:980px;font-size:17px;font-weight:500;cursor:pointer;font-family:inherit;text-decoration:none;}
+    .dl-meta{font-size:13px;color:rgba(255,255,255,0.2);margin-top:14px;}
+    footer{text-align:center;padding:28px 40px;border-top:0.5px solid rgba(255,255,255,0.06);}
+    footer p{font-size:12px;color:rgba(255,255,255,0.2);}
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">MacStandard</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#features">기능</a>
+      <a class="nav-link" href="#tests">테스트 항목</a>
+      <a class="nav-link" href="#download">다운로드</a>
+    </div>
+    <a class="nav-dl" href="#download">무료 다운로드 ›</a>
+  </nav>
+
+  <div class="hero">
+    <p class="eyebrow">MacStandard</p>
+    <h1>내 맥북,<br><em>양품일까?</em></h1>
+    <p class="hero-sub">새 맥북을 샀다면 가장 먼저 실행하세요.<br>9가지 항목을 자동으로 진단해드려요.</p>
+    <div class="cta-row">
+      <a class="cta-primary" href="#download">무료 다운로드 ›</a>
+      <span class="cta-secondary">macOS 13 이상</span>
+    </div>
+  </div>
+
+  <div class="app-wrap">
+    <div class="app-window">
+      <div class="titlebar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="win-title">MacStandard</span>
+      </div>
+      <div class="win-body">
+        <div class="win-header">
+          <div>
+            <div class="win-name">MacStandard</div>
+            <div class="win-sub">하영의 MacBook Neo · macOS 26.4.1</div>
+          </div>
+          <div class="seal">✓</div>
+        </div>
+        <div class="prog-label"><span>진단 진행률</span><span>9/9 완료</span></div>
+        <div class="prog-track"><div class="prog-fill"></div></div>
+        <div class="cards-grid">
+          <div class="wcard">
+            <div class="wcard-top"><span class="wcard-icon">🖥️</span><span class="badge">통과</span></div>
+            <div class="wcard-title">디스플레이</div>
+            <div class="wcard-desc">픽셀 불량 · 밝기 균일성</div>
+            <div class="wcard-div"></div>
+            <div class="wcard-result">불량 픽셀 없음</div>
+          </div>
+          <div class="wcard">
+            <div class="wcard-top"><span class="wcard-icon">⌨️</span><span class="badge">통과</span></div>
+            <div class="wcard-title">키보드</div>
+            <div class="wcard-desc">모든 키 입력 확인</div>
+            <div class="wcard-div"></div>
+            <div class="wcard-result">70/70 키 정상</div>
+          </div>
+          <div class="wcard">
+            <div class="wcard-top"><span class="wcard-icon">🔊</span><span class="badge">통과</span></div>
+            <div class="wcard-title">스피커</div>
+            <div class="wcard-desc">좌우 채널 · 음질 테스트</div>
+            <div class="wcard-div"></div>
+            <div class="wcard-result">좌우 채널 정상</div>
+          </div>
+          <div class="wcard">
+            <div class="wcard-top"><span class="wcard-icon">🔋</span><span class="badge">통과</span></div>
+            <div class="wcard-title">배터리</div>
+            <div class="wcard-desc">사이클 수 · 용량 상태</div>
+            <div class="wcard-div"></div>
+            <div class="wcard-result">사이클 0회 · 상태 68%</div>
+          </div>
+          <div class="wcard">
+            <div class="wcard-top"><span class="wcard-icon">📷</span><span class="badge">통과</span></div>
+            <div class="wcard-title">카메라</div>
+            <div class="wcard-desc">화질 · 색감 확인</div>
+            <div class="wcard-div"></div>
+            <div class="wcard-result">카메라 정상</div>
+          </div>
+          <div class="wcard">
+            <div class="wcard-top"><span class="wcard-icon">💾</span><span class="badge">통과</span></div>
+            <div class="wcard-title">SSD 속도</div>
+            <div class="wcard-desc">읽기 · 쓰기 속도 측정</div>
+            <div class="wcard-div"></div>
+            <div class="wcard-result">읽기 5069 · 쓰기 2188 MB/s</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="features">
+    <p class="sec-eyebrow">기능</p>
+    <h2 class="sec-title">한 번에, 전부.</h2>
+    <p class="sec-sub">버튼 하나로 9가지 항목을 자동으로 진단해요.</p>
+    <div class="feat-cards">
+      <div class="feat">
+        <div class="feat-icon">⚡️</div>
+        <div class="feat-title">빠른 진단</div>
+        <div class="feat-desc">전체 진단 시작 버튼 하나로 모든 항목을 자동으로 테스트해요. 몇 분이면 충분해요.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">📋</div>
+        <div class="feat-title">진단 보고서</div>
+        <div class="feat-desc">테스트 결과를 한눈에 볼 수 있는 보고서를 제공해요. 양품 여부를 명확하게 알려줘요.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">🔒</div>
+        <div class="feat-title">완전 로컬</div>
+        <div class="feat-desc">모든 진단은 내 맥북에서만 이루어져요. 개인정보가 외부로 전송되지 않아요.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="tests">
+    <p class="sec-eyebrow">테스트 항목</p>
+    <h2 class="sec-title">9가지 항목.</h2>
+    <p class="sec-sub">새 맥북에서 확인해야 할 모든 것을 담았어요.</p>
+    <div class="tests-grid">
+      <div class="test-item">
+        <div class="test-icon">🖥️</div>
+        <div class="test-title">디스플레이</div>
+        <div class="test-desc">픽셀 불량 · 밝기 균일성 · 색상 테스트</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">⌨️</div>
+        <div class="test-title">키보드</div>
+        <div class="test-desc">모든 키를 직접 눌러서 확인하는 인터랙티브 테스트</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">🔊</div>
+        <div class="test-title">스피커</div>
+        <div class="test-desc">좌우 채널 개별 테스트 · 실제 음원 재생</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">🔋</div>
+        <div class="test-title">배터리</div>
+        <div class="test-desc">사이클 수 · 배터리 용량 상태 자동 측정</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">📷</div>
+        <div class="test-title">카메라</div>
+        <div class="test-desc">실시간 카메라 미리보기로 화질 직접 확인</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">💾</div>
+        <div class="test-title">SSD 속도</div>
+        <div class="test-desc">읽기 · 쓰기 속도 실제 측정 (MB/s)</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">🖱️</div>
+        <div class="test-title">트랙패드</div>
+        <div class="test-desc">타겟 클릭 게임으로 트랙패드 정확도 확인</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">📶</div>
+        <div class="test-title">WiFi 속도</div>
+        <div class="test-desc">다운로드 · 업로드 · 핑 실시간 측정</div>
+      </div>
+      <div class="test-item">
+        <div class="test-icon">🌡️</div>
+        <div class="test-title">CPU 상태</div>
+        <div class="test-desc">CPU 사용률 · 메모리 · 업타임 확인</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dl-section" id="download">
+    <h2>지금 바로 확인하세요.</h2>
+    <p>내 맥북이 양품인지, 지금 바로 확인해보세요.</p>
+    <a class="dl-btn" href="YOUR_DOWNLOAD_LINK_HERE">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      macOS용 무료 다운로드
+    </a>
+    <div class="dl-meta">macOS 13 이상 · 무료 · 오픈소스</div>
+  </div>
+
+  <footer>
+    <p>Copyright © 2026 MacStandard. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
